@@ -15,3 +15,7 @@ You'll need to create a file at `public/jobs.json`. There is where you will load
 ```
 
 It's very basic and doesn't have the feng shui I want yet. But this was a 3 year old jQuery project that's been brought back to life so I'll take it as it comes.
+
+## TODO
+* sort by `absolute pay`, `pay increase`, `duration`, `pay increase percentage`
+* clean up code
