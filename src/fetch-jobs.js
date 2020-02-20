@@ -13,6 +13,11 @@ const getWage = (job) => {
         job.salary / 53 / 40;
 };
 
+const getSalary = (job) => {
+    const salary = job.salary || job.wage * 40 * 53;
+    return `$${salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} /yr`;
+};
+
 export const processJobData = (jobs) => {
     const totalMonths = jobs.reduce((sum, j) => sum + getMonths(j), 0);
     const maxWage = jobs.reduce((highest, j) => {
@@ -35,7 +40,8 @@ export const processJobData = (jobs) => {
                 percent: Math.round(wageDiff / lastWage * 100),
                 absolutePercent: (wage / maxWage * 100).toFixed(2),
             },
-            wage
+            wage,
+            displaySalary: getSalary(job),
         };
     });
 };
