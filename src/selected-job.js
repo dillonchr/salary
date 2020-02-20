@@ -9,25 +9,30 @@ const styles = {
     }),
 };
 
+const getSalary = (job) => {
+    const salary = job.salary || job.wage * 40 * 53;
+    return `$${salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} /yr`;
+};
+
 const mapStateToProps = state => ({
-    selectedJob: state.selectedJob
+    job: state.selectedJob
 });
 
 const SelectedJob = ({
-    selectedJob,
+    job,
 }) => {
-    if (!selectedJob) {
+    if (!job) {
         return null;
     }
 
     return (
         <div>
-            <h1>${selectedJob.wage}/hr</h1>
+            <h1>{getSalary(job)} (${job.wage} /hr)</h1>
             <h2>
-                <span>${selectedJob.wageDifference.dollars}</span>
-                <span {...styles.percent}>{selectedJob.wageDifference.percent}%</span>
+                <span>${job.wageDifference.dollars}</span>
+                <span {...styles.percent}>{job.wageDifference.percent}%</span>
             </h2>
-            <h3>{selectedJob.position} @ {selectedJob.company}</h3>
+            <h3>{job.position} @ {job.company}</h3>
         </div>
     );
 };

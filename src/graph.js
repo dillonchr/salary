@@ -9,7 +9,12 @@ const styles = {
         height: 'calc(100vh - 200px)',
     }),
     job: css({
-        float: 'left'
+        backgroundColor: 'currentColor',
+        border: 'solid 5px currentColor',
+        float: 'left',
+        ':hover': {
+            backgroundColor: '#000',
+        }
     })
 };
 
@@ -21,12 +26,13 @@ const Job = connect()(({
     job,
     dispatch,
 }) => {
+    const color = `#${((1 << 24) * Math.random() | 0).toString(16)}`
     const style = css(
         styles.job,
         {
+            color,
             width: `${job.percent}%`,
             height: `${job.wageDifference.absolutePercent}%`,
-            backgroundColor: `#${((1 << 24) * Math.random() | 0).toString(16)}`
         },
     );
     const selectJob = () => dispatch({ type: 'show-job', value: job });
