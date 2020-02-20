@@ -6,7 +6,7 @@ const styles = {
     graph: css({
         display: 'flex',
         width: '100%',
-        height: 500,
+        height: 'calc(100vh - 200px)',
     }),
     job: css({
         float: 'left'
