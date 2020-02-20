@@ -1,23 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './selected-job.css';
+import { css } from 'glamor';
+
+const styles = {
+    percent: css({
+        color: '#333',
+        float: 'right',
+    }),
+};
 
 const mapStateToProps = state => ({
     selectedJob: state.selectedJob
 });
 
-const SelectedJob = ({selectedJob}) => {
-
+const SelectedJob = ({
+    selectedJob,
+}) => {
     if (!selectedJob) {
         return null;
     }
 
     return (
-        <div className="selected-job">
+        <div>
             <h1>${selectedJob.wage}/hr</h1>
             <h2>
                 <span>${selectedJob.wageDifference.dollars}</span>
-                <span class="selected-job__percent">{selectedJob.wageDifference.percent}%</span>
+                <span {...styles.percent}>{selectedJob.wageDifference.percent}%</span>
             </h2>
             <h3>{selectedJob.position} @ {selectedJob.company}</h3>
         </div>

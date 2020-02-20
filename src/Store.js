@@ -5,7 +5,7 @@ import App from './App';
 import massageJobsData from './massage-jobs-data';
 
 const initialState = {
-    jobs: []
+    jobs: [],
 };
 
 const reducer = (state = initialState, action) => {
