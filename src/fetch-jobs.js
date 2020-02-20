@@ -1,20 +1,19 @@
-export default jobs => {
+const getMonths = job => {
+    if (job.months) {
+        return job.months;
+    }
 
-    const getMonths = job => {
-        if (job.months) {
-            return job.months;
-        }
+    const [month, year] = job.since.split('/');
+    const today = new Date();
+    return ((today.getFullYear() - year) * 12) + ((today.getMonth() + 1) - month);
+};
 
-        const [month, year] = job.since.split('/');
-        const today = new Date();
-        return ((today.getFullYear() - year) * 12) + ((today.getMonth() + 1) - month);
-    };
+const getWage = (job) => {
+    return job.wage ||
+        job.salary / 53 / 40;
+};
 
-    const getWage = (job) => {
-        return job.wage ||
-            job.salary / 53 / 40;
-    };
-
+export const processJobData = (jobs) => {
     const totalMonths = jobs.reduce((sum, j) => sum + getMonths(j), 0);
     const maxWage = jobs.reduce((highest, j) => {
         const curr = getWage(j);
@@ -39,4 +38,15 @@ export default jobs => {
             wage
         };
     });
+};
+
+export default async () => {
+    try {
+        const response = await fetch('jobs.json');
+        const jobs = await response.json();
+        return processJobData(jobs);
+    } catch (networkError) {
+        console.error('NETWORK ERR:', networkError);
+        return [];
+    }
 };

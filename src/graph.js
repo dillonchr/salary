@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { css } from 'glamor';
+import fetchJobs from './fetch-jobs';
 
 const styles = {
     graph: css({
@@ -17,10 +18,6 @@ const styles = {
         }
     })
 };
-
-const mapStateToProps = state => ({
-    jobs: state.jobs
-});
 
 const Job = connect()(({
     job,
@@ -41,18 +38,18 @@ const Job = connect()(({
     );
 });
 
-const Graph = ({
-    jobs,
-}) => {
-    const bars = jobs.map((job, i) => {
-        return <Job key={i} job={job} />;
-    });
+export default () => {
+    const [jobs, setJobs] = React.useState([]);
+
+    React.useEffect(() => {
+        fetchJobs().then((jobs) => {
+            setJobs(jobs.map((job, i) => {
+                return <Job key={i} job={job} />;
+            }));
+        });
+    }, []);
 
     return (
-        <div {...styles.graph}>
-            {bars}
-        </div>
+        <div {...styles.graph}>{jobs}</div>
     );
 };
-
-export default connect(mapStateToProps)(Graph);
