@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 
 const initialState = {
-    jobs: [],
+    selectedJob: null,
 };
 
 const reducer = (state = initialState, action) => {
