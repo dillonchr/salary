@@ -8,10 +8,12 @@ const styles = {
         display: 'flex',
         width: '100%',
         height: 'calc(100vh - 200px)',
+        alignItems: 'flex-end',
     }),
     job: css({
         backgroundColor: 'currentColor',
         border: 'solid 5px currentColor',
+        boxSizing: 'border-box',
         float: 'left',
         ':hover': {
             backgroundColor: '#000',
