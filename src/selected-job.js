@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 });
 
 const SelectedJob = ({
-    job,
+    job
 }) => {
     if (!job) {
         return null;

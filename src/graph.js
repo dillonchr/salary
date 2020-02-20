@@ -16,11 +16,12 @@ const styles = {
         boxSizing: 'border-box',
         float: 'left',
         ':hover': {
-            backgroundColor: '#000',
+            backgroundColor: '#010101',
         }
-    })
+    }),
 };
 
+//  TODO: come up with better syntax for these kinds of simple components
 const Job = connect()(({
     job,
     dispatch,
@@ -41,14 +42,15 @@ const Job = connect()(({
 });
 
 export default () => {
-    const [jobs, setJobs] = React.useState([]);
+    const [jobs, setJobs] = React.useState(null);
 
     React.useEffect(() => {
-        fetchJobs().then((jobs) => {
-            setJobs(jobs.map((job, i) => {
-                return <Job key={i} job={job} />;
-            }));
-        });
+        fetchJobs()
+            .then((jobs) => {
+                setJobs(jobs.map((job, i) => {
+                    return <Job key={i} job={job} />;
+                }));
+            });
     }, []);
 
     return (
